@@ -1,0 +1,36 @@
+{
+    "results": [
+        {
+            "expected": "MXTMQB MX PONR",
+            "actual": "MXTMQB EF HAIB",
+            "correct?": false
+        },
+        {
+            "expected": "ZOBTG",
+            "actual": "ZOBTG",
+            "correct?": true
+        },
+        {
+            "expected": "LBXW US FWO S HGVZE AB MK PR MREK MEUY",
+            "actual": "LBXW ZE NGL I NGWHT MK US SF IMQK LPGV",
+            "correct?": false
+        },
+        {
+            "expected": "WIY QMBI DS DLYD",
+            "actual": "WIY WSPO XM DLYD",
+            "correct?": false
+        },
+        {
+            "expected": "RHDIHA AIRKAE BQ GZE VTKMFSKR HD CGSVBBMVF NBE AIYDEQ VYMFSR QGATHVIAO RANJ",
+            "actual": "RHDIHA VYMFSR VA MFM ASMRATIM BX PBABRQBFS AWP AIYDEQ KTCANJ IAKESLVFG GATP",
+            "correct?": false
+        },
+        {
+            "expected": "WUTUC XNK HRHMKTOT",
+            "actual": "WUTUC GLK NQDTINUS",
+            "correct?": false
+        }
+    ],
+    "max_score": 4,
+    "actual_score": 0
+}
