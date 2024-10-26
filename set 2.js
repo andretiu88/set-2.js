@@ -29,13 +29,13 @@ function shiftLetter(letter, shift) {
     }
 
     // Get the position of the letter in the alphabet (A = 0, B = 1, ..., Z = 25)
-    var position = letter.charCodeAt(0) - 65;
+    let position = letter.charCodeAt(0) - 65;
 
     // Shift the position by the given number
-    var newPosition = (position + shift) % 26;
+    let newPosition = (position + shift) % 26;
 
     // Convert the new position back to a letter
-    var newLetter = String.fromCharCode(newPosition + 65);
+    let newLetter = String.fromCharCode(newPosition + 65);
 
     return newLetter;
 }
@@ -51,8 +51,23 @@ function shiftLetter(letter, shift) {
  * @returns {string} The message, shifted appropriately.
  */
 function caesarCipher(message, shift) {
-    // Write your code here
-}
+    let result = "";
+  
+    for (let i = 0; i < message.length; i++) {
+      let char = message[i];
+  
+      if (char === " ") {
+        result += char;
+      } else {
+        let charCode = char.charCodeAt(0);
+        let newCharCode = ((charCode - 65 + shift) % 26) + 65;
+        result += String.fromCharCode(newCharCode);
+      }
+    }
+  
+    return result;
+  }
+   
 
 /**
  * Shift by letter
@@ -71,8 +86,16 @@ function caesarCipher(message, shift) {
  * @returns {string} The letter, shifted appropriately
  */
 function shiftByLetter(letter, letterShift) {
-    // Write your code here
-}
+
+     
+        if (letter === ' ') return ' ';
+        
+        const letterCode = letter.charCodeAt(0) - 65;
+        const shiftCode = letterShift.charCodeAt(0) - 65;
+        const newCode = (letterCode + shiftCode) % 26;
+        
+        return String.fromCharCode(newCode + 65);
+    }
 
 /**
  * Vigenere cipher
@@ -91,9 +114,35 @@ function shiftByLetter(letter, letterShift) {
  * @param {string} key A string of uppercase English letters, no spaces. Will not exceed the length of the message.
  * @returns {string} The message, shifted appropriately
  */
+
 function vigenereCipher(message, key) {
-    // Write your code here
-}
+    let encryptedMessage = "";
+    let keyIndex = 0;
+    let alphabetStart = 'A'.charCodeAt(0);
+  
+    message = message.toUpperCase();
+    key = key.toUpperCase();
+  
+    for (let i = 0; i < message.length; i++) {
+      let currentChar = message[i];
+  
+      if (currentChar >= 'A' && currentChar <= 'Z') {
+        let keyChar = key[keyIndex % key.length];
+        let shiftAmount = keyChar.charCodeAt(0) - alphabetStart;
+  
+        let messageCharValue = currentChar.charCodeAt(0) - alphabetStart;
+        let newCharValue = (messageCharValue + shiftAmount) % 26;
+        let encryptedChar = String.fromCharCode(newCharValue + alphabetStart);
+  
+        encryptedMessage += encryptedChar;
+        keyIndex++;
+      } else {
+        encryptedMessage += currentChar;
+      }
+    }
+  
+    return encryptedMessage;
+  }
 
 /**
  * Scytale cipher
@@ -136,7 +185,24 @@ function vigenereCipher(message, key) {
  * @param {number} shift A positive integer that does not exceed the length of the message
  */
 function scytaleCipher(message, shift) {
-    // Write your code here
+    let length = message.length;
+    if (length % shift !== 0) {
+        let extraChars = shift - (length % shift);
+        message += '_'.repeat(extraChars);
+    }
+
+    let encodedMessage = '';
+
+    let numRows = message.length / shift;
+
+    for (let i = 0; i < message.length; i++) {
+        let rowIndex = parseInt(i / shift);
+        let colIndex = i % shift;
+        let newIndex = rowIndex + numRows * colIndex;
+        encodedMessage += message[newIndex];
+    }
+
+    return encodedMessage;
 }
 
 /**
@@ -153,5 +219,16 @@ function scytaleCipher(message, shift) {
  * @param {Number} shift A positive integer that does not exceed the length of the message
  */
 function scytaleDecipher(message, shift) {
-    // Write your code here
+    const numRows = Math.floor(message.length / shift);
+    let result = Array(message.length).fill('');
+
+    for (let index = 0; index < message.length; index++) {
+        const column = index % shift;
+        const row = Math.floor(index / shift);
+
+        const newIndex = column * numRows + row;
+        result[newIndex] = message[index];
+    }
+
+    return result.join('');
 }
